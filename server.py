@@ -36,6 +36,11 @@ try:
         for connection in clientThread.connectionList:
             for message in listOfMessages:
                 connection.sendall(message)
-except:
+except KeyboardInterrupt:
+    clientThread.loop = False
+    print "shutting down"
+
+except Exception as e:
+    print e
     clientThread.loop = False
 
