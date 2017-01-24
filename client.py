@@ -10,6 +10,7 @@ try:
         newMessage = raw_input(">>>")
         s.sendall(">>>"+str(newMessage))
         data = s.recv(1024)
+        print data
 except KeyboardInterrupt:
     s.close()
-print 'Received', repr(data)
+
