@@ -29,13 +29,13 @@ try:
     while 1:
         listOfMessages = []
         for connection in clientThread.connectionList:
-            read, write, error = select.select(connection, [], [])
+            read, write, error = select.select([connection], [], [])
             if read:
                 listOfMessages.append(connection.recv(1024))
 
         for connection in clientThread.connectionList:
             for message in listOfMessages:
                 connection.sendall(message)
-except KeyboardInterrupt:
+except:
     clientThread.loop = False
 
