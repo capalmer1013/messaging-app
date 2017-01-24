@@ -17,10 +17,14 @@ class listenForConnectionsThread(threading.Thread):
         self.loop = True
 
     def run(self):
-        while self.loop:
-            conn, addr = s.accept()
-            print 'Connected by', addr
-            self.connectionList.append(conn)
+        try:
+            while self.loop:
+                conn, addr = s.accept()
+                print 'Connected by', addr
+                self.connectionList.append(conn)
+        except KeyboardInterrupt:
+            self.loop = False
+            exit()
 
 
 clientThread = listenForConnectionsThread()
@@ -39,8 +43,12 @@ try:
 except KeyboardInterrupt:
     clientThread.loop = False
     print "shutting down"
+    exit()
+
 
 except Exception as e:
     print e
     clientThread.loop = False
+    exit()
+    
 
